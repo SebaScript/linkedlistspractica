@@ -14,27 +14,6 @@ class Juego:
     def iniciar_y(self):
         self.pos_y = self.tablero.posicion_inicial_y()
 
-    def saltar_dos_veces(self, fila, col, direccion, pos):
-        if direccion == "1":
-            fila -= 1
-        elif direccion == "2":
-            fila += 1
-        elif direccion == "3":
-            col -= 1
-        elif direccion == "4":
-            col += 1
-
-        if not self.tablero.verificar_posicion(fila, col):
-            print("No te puedes salir de los bordes")
-            fila, col = pos
-
-        valor = self.tablero.obtener_posicion(fila, col)
-        if valor == '⛔':
-            print("La celda está bloqueada")
-            fila, col = pos
-
-        return fila, col
-
     def movimiento_x(self):
         while True:
             direccion = input("Movimiento:\n1: arriba\n2: abajo\n3: izquierda\n4: derecha\n->  ")
@@ -161,3 +140,25 @@ class Juego:
             return "\nLa maquina gana :( "
         else:
             return None
+
+    def saltar_dos_veces(self, fila, col, direccion, pos):
+        if direccion == "1":
+            fila -= 1
+        elif direccion == "2":
+            fila += 1
+        elif direccion == "3":
+            col -= 1
+        elif direccion == "4":
+            col += 1
+
+        if not self.tablero.verificar_posicion(fila, col):
+            print("No te puedes salir de los bordes")
+            fila, col = pos
+
+        valor = self.tablero.obtener_posicion(fila, col)
+        if valor == '⛔':
+            print("La celda está bloqueada")
+            fila, col = pos
+
+        return fila, col
+    
