@@ -2,10 +2,11 @@ from random import randint
 from tablero import Tablero
 from juego import Juego
 
+print("\nHOLAAAAAAAAAA")
 
 def menu_crear_tablero():
     while True:
-        tamano_tablero = int(input("\nIngresa el tamaño del tablero: "))
+        tamano_tablero = int(input("\nIngresa el tamaño del tablero\n-> "))
         print("")
         if tamano_tablero < 3:
             print("El tablero debe ser minimo de 3x3")
