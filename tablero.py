@@ -14,6 +14,7 @@ class Tablero:
             for j in range(self.tamano):
                 fila.add_head(None)
             tablero.add_head(fila)
+
         return tablero
 
     def mostrar_tablero(self):
@@ -44,6 +45,7 @@ class Tablero:
         col = (self.tamano // 2)
 
         self.cambiar_casilla(fila, col, '❌')
+
         return fila, col
 
     def posicion_inicial_y(self):
@@ -51,10 +53,12 @@ class Tablero:
         col = (self.tamano // 2)
 
         self.cambiar_casilla(fila, col, '🤖')
+
         return fila, col
 
     def verificar_posicion(self, fila: int, col: int):
         validacion: bool = 0 <= fila < self.tamano and 0 <= col < self.tamano
+        
         return validacion
 
     def obtener_posicion(self, fila, col):
@@ -82,11 +86,12 @@ class Tablero:
         current.value = valor
 
     def verificar_camino(self, i_pos, fila_ganar, fila_bloqueo, col_bloqueo):
+
         fila, col = i_pos
         casilla_original = self.obtener_posicion(fila_bloqueo, col_bloqueo)
         self.cambiar_casilla(fila_bloqueo, col_bloqueo, "⛔")
+
         if fila == fila_ganar:
-            self.cambiar_casilla(fila_bloqueo, col_bloqueo, casilla_original)
             return True
         
         valor_actual = self.obtener_posicion(fila, col)
@@ -101,8 +106,9 @@ class Tablero:
         current = direcciones.head
 
         while current:
-            temp_fila, temp_col = current.value
-            nueva_fila, nueva_col = fila + temp_fila, col + temp_col
+
+            temp_mov_f, temp_mov_c = current.value
+            nueva_fila, nueva_col = fila + temp_mov_f, col + temp_mov_c
 
             if self.verificar_posicion(nueva_fila, nueva_col):
                 if self.obtener_posicion(nueva_fila, nueva_col) != "0":
@@ -111,9 +117,11 @@ class Tablero:
                             self.cambiar_casilla(fila, col, valor_actual)
                             self.cambiar_casilla(fila_bloqueo, col_bloqueo, casilla_original)
                             return True
+                        
             current = current.next
                             
         self.cambiar_casilla(fila, col, valor_actual)
         self.cambiar_casilla(fila_bloqueo, col_bloqueo, casilla_original)
+
         return False
     

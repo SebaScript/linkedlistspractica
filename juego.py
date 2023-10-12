@@ -1,6 +1,5 @@
 from random import randint
 from tablero import Tablero
-from linkedlist import LinkedList
 
 
 class Juego:
@@ -141,11 +140,13 @@ class Juego:
             break
 
     def verificar_ganador(self):
-        if self.pos_x[0] == 0:
+        filax, colx = self.pos_x
+        if filax == 0:
             return "\n!!!!!!!!!!!!!!!!El jugador X gana!!!!!!!!!!!!!!!"
-        if self.pos_y[0] == self.tablero.tamano - 1:
+        filay, coly = self.pos_y
+        if filay == self.tablero.tamano - 1:
             self.tablero.mostrar_tablero()
-            return "\nLa maquina gana :( "
+            return "\nLa maquina gana :("
         else:
             return None
 
@@ -169,36 +170,6 @@ class Juego:
             fila, col = pos
 
         return fila, col
-    
-    def verificar_camino(self, i_pos, fila_ganar):
-        fila, col = i_pos
-        if i_pos == fila_ganar:
-            return True
-        
-        valorcurrent = self.tablero.obtener_posicion(fila, col)
-        self.tablero.cambiar_casilla(fila, col, "0")
-
-        direcciones = LinkedList()
-        direcciones.add_head((0,1))
-        direcciones.add_head((1,0))
-        direcciones.add_head((0,-1))
-        direcciones.add_head((-1,0))
-
-        current = direcciones.head
-
-        while current:
-            for i, j in current.value:
-                nueva_fila, nueva_col = fila + i, col + j
-
-                if self.tablero.verificar_posicion(nueva_fila, nueva_col):
-                    if self.tablero.obtener_posicion(nueva_fila, nueva_col) != "0":
-                        if self.tablero.obtener_posicion(nueva_fila, nueva_col) != "⛔":
-                            if self.verificar_camino((nueva_fila, nueva_col), fila_ganar):
-                                self.tablero.cambiar_casilla(fila, col, valorcurrent)
-                                return True
-                            
-        self.tablero.cambiar_casilla(fila, col, valorcurrent)
-        return False
     
 
 print("\nHOLAAAAAAAAAAAAAAAAAA")
