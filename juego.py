@@ -14,6 +14,11 @@ class Juego:
     def iniciar_y(self):
         self.pos_y = self.tablero.posicion_inicial_y()
 
+    def casilla_pasar_ganar(self):
+        fila = 1
+        col = 0
+        self.tablero.cambiar_casilla(fila, col, "🟨")
+
     def movimiento_x(self):
         while True:
             direccion = input("Movimiento:\n1: arriba\n2: abajo\n3: izquierda\n4: derecha\n->  ")
@@ -193,6 +198,7 @@ def menu_inicio(tablero, juego):
             tablero.celdas()
             juego.iniciar_x()
             juego.iniciar_y()
+            juego.casilla_pasar_ganar()
             menu_turnos(tablero, juego)
             break
 
@@ -213,6 +219,9 @@ def menu_turnos(tablero, juego):
             juego.movimiento_x()
         elif opcion_x == "2":
             juego.bloqueo_x()
+        else:
+            print("Ingrese 1 o 2")
+            continue
         
         ganador = juego.verificar_ganador()
         if ganador:

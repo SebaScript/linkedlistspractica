@@ -85,16 +85,19 @@ class Tablero:
 
         current.value = valor
 
-    def verificar_camino(self, i_pos, fila_ganar, fila_bloqueo, col_bloqueo):
+    def verificar_camino(self, i_pos, fila_ganar, fila_bloqueo, col_bloqueo, paso_por_valor = None):
 
         fila, col = i_pos
         casilla_original = self.obtener_posicion(fila_bloqueo, col_bloqueo)
         self.cambiar_casilla(fila_bloqueo, col_bloqueo, "⛔")
 
-        if fila == fila_ganar:
+        if fila == fila_ganar and paso_por_valor:
             return True
         
         valor_actual = self.obtener_posicion(fila, col)
+        if valor_actual == "🟨":
+            paso_por_valor = True
+
         self.cambiar_casilla(fila, col, "0")
 
         direcciones = LinkedList()
@@ -113,7 +116,7 @@ class Tablero:
             if self.verificar_posicion(nueva_fila, nueva_col):
                 if self.obtener_posicion(nueva_fila, nueva_col) != "0":
                     if self.obtener_posicion(nueva_fila, nueva_col) != "⛔":
-                        if self.verificar_camino((nueva_fila, nueva_col), fila_ganar, fila_bloqueo, col_bloqueo):
+                        if self.verificar_camino((nueva_fila, nueva_col), fila_ganar, fila_bloqueo, col_bloqueo, paso_por_valor):
                             self.cambiar_casilla(fila, col, valor_actual)
                             self.cambiar_casilla(fila_bloqueo, col_bloqueo, casilla_original)
                             return True
